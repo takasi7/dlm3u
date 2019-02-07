@@ -9,12 +9,12 @@ import subprocess
 import datetime
 import ssl
 
-DEFAULT_REFERER='https://avgle.com/video/'
+DEFAULT_REFERER='https://www.google.com'
 SUFFIX='_out.ts'
 
 def createheaders(args):
 	headers = {
-		           # "Origin":"https://avgle.com",
+		           # "Origin":"https://www.google.com",
                    # "Accept-Encoding":"gzip, deflate, br",
                     "Accept-Language":"ja,en-US;q=0.9,en;q=0.8",
                     "Accept":"*/*",
