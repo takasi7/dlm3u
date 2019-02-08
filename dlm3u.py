@@ -14,11 +14,11 @@ SUFFIX='_out.ts'
 
 def createheaders(args):
 	headers = {
-		           # "Origin":"https://www.google.com",
-                   # "Accept-Encoding":"gzip, deflate, br",
-                    "Accept-Language":"ja,en-US;q=0.9,en;q=0.8",
-                    "Accept":"*/*",
-                    "Connection":"keep-alive"
+			 # "Origin":"https://www.google.com",
+			 # "Accept-Encoding":"gzip, deflate, br",
+			"Accept-Language":"ja,en-US;q=0.9,en;q=0.8",
+			"Accept":"*/*",
+			"Connection":"keep-alive"
 		}
 	
 	if args.headers != None:
@@ -155,7 +155,7 @@ def getm3u8file(args,headers):
 	print('to ' + filepath)
 	res = http_download(args.m3u8file, headers, filepath)
 	if res < 0:
-		print('can not download m3u8 file')
+		print("can't download m3u8 file")
 		exit(-1)
 	print('ok')
 	args.m3u8file = filepath
