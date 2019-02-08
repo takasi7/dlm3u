@@ -58,11 +58,15 @@ def http_download(url,headers,outputpath):
 
 def downloadfile(urls,headers,outputdir,stcount=0,suffix=SUFFIX):
 	results = []
+	total = len(urls)
+	ct = 0
 	for url in urls:
 		filename = "{:0=10}".format(stcount)
 		filename = filename + suffix
 		outputpath = os.path.join(outputdir,filename)
-		print(outputpath+" "+url)
+		ct += 1
+		ratestr = "[" + str(int((ct / total)*100)) + "%]"
+		print(ratestr + outputpath+" "+url)
 		res = http_download(url,headers,outputpath)
 		results.append(res)
 		if res < 0:
