@@ -124,13 +124,20 @@ def printresult(urls,results,stcount=0,suffix=SUFFIX):
 		exit(-1)
 	return 0
 
-def loadm3u8(path,urls=[]):
+def loadm3u8(path,urlprefix=''):
+	urls = []
 	f = open(path,'r')
 	line = f.readline()
 	while line:
 		line = line.rstrip()
 		if re.match('http',line):
 			urls.append(line)
+		elif re.match('/',line):
+			line = urlprefix + line
+			urls.append(line)
+		elif re.match('#',line) == None:
+			line = urlprefix + '/' + line
+			urls.appned(line)
 		line = f.readline()
 	f.close()
 	return urls
@@ -203,9 +210,10 @@ def ffmpegproc(filepath,outdir,args):
 
 def getarg():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("-H","--headers",   help="set http headers",          action="append"     )
 	parser.add_argument("-u","--unverified",help="no verify certificate",     action="store_true" )
 	parser.add_argument("-n","--noreferer", help="no referer header",         action="store_true" )
+	parser.add_argument("-H","--headers",   help="set http headers",          action="append"     )
+	parser.add_argument("-p","--prefix",    help="specify prefix to put in the path",default=''   )
 	parser.add_argument("-r","--referer",   help="set referer header"                             )
 	parser.add_argument("-d","--directory", help="specify output directory"                       )
 	parser.add_argument("-o","--output",    help="specify output filename"                        )
@@ -222,7 +230,7 @@ if __name__=='__main__':
 	headers = createheaders(args)
 	getm3u8file(args,headers)
 	outdir = createoutputdir(args)
-	urls = loadm3u8(args.m3u8file)
+	urls = loadm3u8(args.m3u8file,urlprefix=args.prefix)
 	urls = stendurls(urls,args)
 	res = downloadfile(urls,headers,outdir,args.start)
 	printresult(urls,res)
