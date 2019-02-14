@@ -1,0 +1,59 @@
+HLS(m3u8+ts)形式の動画をダウンロードし、MP4に変換して保存する
+m3u8ファイルはインターネット上にあっても、ローカルにあってもよい
+
+dlm3u.py　<path-to-m3u8-file,url-to-m3u8-file>
+
+オプション
+-u
+--unverified
+	httpsのダウンロードで証明書を検証しない
+
+-n
+--noreferer
+	リファラヘッダ無しでダウンロードする
+
+-H <field>:<parameter>　...
+--headers　<field>:<parameter> ...
+	リクエストヘッダを追加・上書きする
+	いくつでも設定可能
+
+-p <prefix>
+--prefix <prefix>
+	m3u8ファイルのメディアパスにつける接頭辞
+	メディアパスが相対である場合に指定する
+
+-r　<referer>
+--referer　<referer>
+	リファラを指定する
+
+-d　<path-to-dirctory>
+--directory　<path-to-dirctory>
+	ダウンロードするディレクトリを指定する
+	指定したディレクトリが無い場合は作成する
+
+-o <file-name>
+--output <file-name>
+	出力するファイル名を指定する
+
+-s　<number>
+--start　<number>
+	ダウンロードを開始するメディアをファイル内の出現順番号で指定する
+
+-e　<number>
+--end　<number>
+	ダウンロードを終了するメディアをファイル内の出現順番号で指定する
+
+
+(例）
+リファラを指定してダウンロード
+./dlm3u -r "http://www.video.com/video/vc-11%20%20aaa" "http://www.video.com/abc.m3u8"
+
+ローカルのm3u8ファイルを指定
+./dlm3u -r "http://www.video.com/video/vc-11%20%20aaa" ./sample.m3u8
+
+証明書を検証せずにダウンロード
+./dlm3u -u -r "https://www.video.com/video/vc-11%20%20aaa" "https://www.video.com/abc.m3u8"
+
+必要なもの
+python3
+ffmpeg
